@@ -26,19 +26,19 @@ def valores_nulos_susti(df):
     cualitativas = df.select_dtypes(include=['object', 'datetime','category'])
 
     #Seleccionar las pares e impares 
-    impares = cuantitativas.iloc[:, ::2]  
+    impares = cuantitativas.iloc[:, ::2]   
     pares = cuantitativas.iloc[:, 1::2]
-
-    # Sustituyo valores nulos en columnas pares con el método mean
+    
+    # sustituir los pares  con .mean 
     pares = pares.fillna(round(pares.mean(),1))
 
-    # Sustituyo valores nulos en columnas impares con la constante 99
+    # Los valores impares que son cuantitativas rellenarlo con 99
     impares = impares.fillna(99)
 
-    #Columnas cualitativas
+    #Relleno las cualitativas con strings
     cualitativas = cualitativas.fillna('Este_es_un_valor_nulo')
          
-     # Unimos el dataframe cuantitativo limpio con el dataframe cualitativo
+     # Unimos los dataframe spara que se vuelva limpio
     Datos_sin_nulos = pd.concat([pares,impares, cualitativas], axis=1)
     
     return(Datos_sin_nulos)
